@@ -8,7 +8,8 @@ class Report {
   static $actions = array('get','delete','count','add');
   static $parameters = array('date','days','limit','offset','type','email');
   static $parameters_underscored = array('start_date'=>'startDate','end_date'=>'endDate','delete_all'=>'deleteAll'); // to comply with PSR, methods shouldn't have underscores
-  public $module, $action, $format;
+  public $module, $format;
+  public $action = "get";
 
   public function __construct() {
     $this->format = 'json';
@@ -16,7 +17,6 @@ class Report {
 
   public function __call($method, $args=null) {
     // set action (defaults to get)
-    $this->action = 'get';
     if(in_array($method,self::$actions))$this->action = $method;
     // set module
     if(in_array($method,self::$modules))$this->module = $method;
